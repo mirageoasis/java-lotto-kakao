@@ -1,7 +1,5 @@
 package lotto;
 
-import java.util.Set;
-
 public class LottoController {
 	private final InputView inputView;
 	private final OutputView outputView;
@@ -15,7 +13,7 @@ public class LottoController {
 		LottoTickets lottoTickets = readLottoTickets();
 		outputView.printPurchaseResult(lottoTickets);
 
-		Set<LottoNumber> winningNumbers = readWinningNumbers();
+		WinningNumbers winningNumbers = readWinningNumbers();
 		LottoAnswer lottoAnswer = readLottoAnswer(winningNumbers);
 		LottoStatistics lottoStatistics = buildStatistics(lottoAnswer, lottoTickets);
 		outputView.printStatistics(lottoStatistics);
@@ -41,7 +39,7 @@ public class LottoController {
 		}
 	}
 
-	private Set<LottoNumber> readWinningNumbers() {
+	private WinningNumbers readWinningNumbers() {
 		while (true) {
 			try {
 				return inputView.readWinningNumbers();
@@ -51,7 +49,7 @@ public class LottoController {
 		}
 	}
 
-	private LottoAnswer readLottoAnswer(Set<LottoNumber> winningNumbers) {
+	private LottoAnswer readLottoAnswer(WinningNumbers winningNumbers) {
 		while (true) {
 			try {
 				LottoNumber bonusNumber = inputView.readBonusNumber();

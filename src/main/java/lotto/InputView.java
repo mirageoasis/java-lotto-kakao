@@ -14,7 +14,7 @@ public class InputView {
 		return new Money(parseInteger(scanner.nextLine()));
 	}
 
-	public Set<LottoNumber> readWinningNumbers() {
+	public WinningNumbers readWinningNumbers() {
 		System.out.println("지난 주 당첨 번호를 입력해 주세요.");
 		String input = scanner.nextLine();
 		return parseWinningNumbers(input);
@@ -25,12 +25,12 @@ public class InputView {
 		return new LottoNumber(parseInteger(scanner.nextLine()));
 	}
 
-	private Set<LottoNumber> parseWinningNumbers(String input) {
+	private WinningNumbers parseWinningNumbers(String input) {
 		List<String> splitNumbers = Arrays.stream(input.split(","))
 			.map(String::trim)
 			.toList();
 		validateWinningNumbersCount(splitNumbers);
-		return toLottoNumbers(splitNumbers);
+		return new WinningNumbers(toLottoNumbers(splitNumbers));
 	}
 
 	private void validateWinningNumbersCount(List<String> splitNumbers) {

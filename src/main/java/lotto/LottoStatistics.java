@@ -4,36 +4,36 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class LottoStatistics {
-	private final Map<Rank,Integer> cntByRank = new HashMap<>();
+	private final Map<Rank, Integer> countByRank = new HashMap<>();
 
 	public void add(Rank rank) {
-		cntByRank.put(rank, cntByRank.getOrDefault(rank,0)+1);
+		countByRank.put(rank, countByRank.getOrDefault(rank, 0) + 1);
 	}
 
 	public int countOf(Rank rank) {
-		return cntByRank.getOrDefault(rank, 0);
+		return countByRank.getOrDefault(rank, 0);
 	}
 
- 	public long	totalPrizeMoney() {
-		long ret = 0;
-		for(Map.Entry<Rank, Integer> map: cntByRank.entrySet()){
-			ret += map.getKey().prizeMoney() * map.getValue() ;
+	public long totalPrizeMoney() {
+		long totalPrizeMoneyAmount = 0;
+		for (Map.Entry<Rank, Integer> rankEntry : countByRank.entrySet()) {
+			totalPrizeMoneyAmount += rankEntry.getKey().prizeMoney() * rankEntry.getValue();
 		}
-		return ret;
+		return totalPrizeMoneyAmount;
 	}
 
 	public double profitRate() {
-		final int totalCnt = totalCnt();
-		if (totalCnt == 0)
+		final int totalTicketCount = totalTicketCount();
+		if (totalTicketCount == 0)
 			return 0.0;
-		return (double) totalPrizeMoney() / (totalCnt * 1000);
+		return (double) totalPrizeMoney() / (totalTicketCount * 1000);
 	}
 
-	private int totalCnt() {
-		int ret = 0;
-		for(Map.Entry<Rank, Integer> map: cntByRank.entrySet()){
-			ret += map.getValue();
+	private int totalTicketCount() {
+		int totalCount = 0;
+		for (Map.Entry<Rank, Integer> rankEntry : countByRank.entrySet()) {
+			totalCount += rankEntry.getValue();
 		}
-		return ret;
+		return totalCount;
 	}
 }

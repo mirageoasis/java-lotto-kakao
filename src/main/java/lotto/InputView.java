@@ -2,6 +2,7 @@ package lotto;
 
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Scanner;
 import java.util.Set;
 
@@ -25,20 +26,20 @@ public class InputView {
 	}
 
 	private Set<LottoNumber> parseWinningNumbers(String input) {
-		String[] splitNumbers = Arrays.stream(input.split(","))
+		List<String> splitNumbers = Arrays.stream(input.split(","))
 			.map(String::trim)
-			.toArray(String[]::new);
+			.toList();
 		validateWinningNumbersCount(splitNumbers);
 		return toLottoNumbers(splitNumbers);
 	}
 
-	private void validateWinningNumbersCount(String[] splitNumbers) {
-		if (splitNumbers.length != 6) {
+	private void validateWinningNumbersCount(List<String> splitNumbers) {
+		if (splitNumbers.size() != 6) {
 			throw new IllegalArgumentException("당첨 번호는 6개를 입력해야 합니다.");
 		}
 	}
 
-	private Set<LottoNumber> toLottoNumbers(String[] splitNumbers) {
+	private Set<LottoNumber> toLottoNumbers(List<String> splitNumbers) {
 		Set<LottoNumber> numbers = new HashSet<>();
 		for (String splitNumber : splitNumbers) {
 			numbers.add(new LottoNumber(parseInteger(splitNumber)));

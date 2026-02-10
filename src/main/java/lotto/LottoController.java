@@ -1,6 +1,5 @@
 package lotto;
 
-import java.util.List;
 import java.util.Set;
 
 public class LottoController {
@@ -13,7 +12,7 @@ public class LottoController {
 	}
 
 	public void run() {
-		List<LottoTicket> lottoTickets = readLottoTickets();
+		LottoTickets lottoTickets = readLottoTickets();
 		outputView.printPurchaseResult(lottoTickets);
 
 		Set<LottoNumber> winningNumbers = readWinningNumbers();
@@ -22,7 +21,7 @@ public class LottoController {
 		outputView.printStatistics(lottoStatistics);
 	}
 
-	private List<LottoTicket> readLottoTickets() {
+	private LottoTickets readLottoTickets() {
 		while (true) {
 			try {
 				return LottoTicketGenerator.generate(readMoney().toPurchaseCount());
@@ -63,11 +62,9 @@ public class LottoController {
 		}
 	}
 
-	private LottoStatistics buildStatistics(LottoAnswer lottoAnswer, List<LottoTicket> lottoTickets) {
+	private LottoStatistics buildStatistics(LottoAnswer lottoAnswer, LottoTickets lottoTickets) {
 		LottoStatistics lottoStatistics = new LottoStatistics();
-		for (LottoTicket lottoTicket : lottoTickets) {
-			lottoStatistics.add(lottoAnswer.judge(lottoTicket));
-		}
+		lottoTickets.forEach(lottoTicket -> lottoStatistics.add(lottoAnswer.judge(lottoTicket)));
 		return lottoStatistics;
 	}
 }

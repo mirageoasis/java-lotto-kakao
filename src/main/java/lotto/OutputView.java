@@ -7,11 +7,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class OutputView {
-	public void printPurchaseResult(List<LottoTicket> lottoTickets) {
+	public void printPurchaseResult(LottoTickets lottoTickets) {
 		System.out.printf("%d개를 구매했습니다.%n", lottoTickets.size());
-		for (LottoTicket lottoTicket : lottoTickets) {
-			System.out.println(formatNumbers(lottoTicket));
-		}
+		lottoTickets.forEach(lottoTicket -> System.out.println(formatNumbers(lottoTicket)));
 		System.out.println();
 	}
 

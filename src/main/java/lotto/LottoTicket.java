@@ -15,10 +15,6 @@ public class LottoTicket {
 		this.numbers = new HashSet<>(numbers);
 	}
 
-	public Set<LottoNumber> getNumbers() {
-		return Collections.unmodifiableSet(numbers);
-	}
-
 	public boolean contains(LottoNumber number){
 		return numbers.contains(number);
 	}

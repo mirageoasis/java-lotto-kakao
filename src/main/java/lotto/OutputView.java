@@ -2,14 +2,11 @@ package lotto;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.util.Comparator;
-import java.util.List;
-import java.util.stream.Collectors;
 
 public class OutputView {
 	public void printPurchaseResult(LottoTickets lottoTickets) {
 		System.out.printf("%d개를 구매했습니다.%n", lottoTickets.size());
-		lottoTickets.forEach(lottoTicket -> System.out.println(formatNumbers(lottoTicket)));
+		lottoTickets.forEach(lottoTicket -> System.out.println(lottoTicket.sortedNumbers()));
 		System.out.println();
 	}
 
@@ -31,13 +28,6 @@ public class OutputView {
 			return;
 		}
 		System.out.printf("[ERROR] %s%n", message);
-	}
-
-	private List<Integer> formatNumbers(LottoTicket lottoTicket) {
-		return lottoTicket.getNumbers().stream()
-			.map(LottoNumber::getValue)
-			.sorted(Comparator.naturalOrder())
-			.collect(Collectors.toList());
 	}
 
 	private void printRankResult(String label, int count) {

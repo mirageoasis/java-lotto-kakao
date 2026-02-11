@@ -1,8 +1,11 @@
 package lotto;
 
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class LottoTicket {
 	private final Set<LottoNumber> numbers;
@@ -18,6 +21,12 @@ public class LottoTicket {
 
 	public boolean contains(LottoNumber number){
 		return numbers.contains(number);
+	}
+
+	public List<Integer> sortedNumbers() {
+		return numbers.stream().map(LottoNumber::getValue)
+			.sorted(Comparator.naturalOrder())
+			.collect(Collectors.toList());
 	}
 
 	private void validateNumbers(Set<LottoNumber> numbers) {

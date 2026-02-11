@@ -21,9 +21,10 @@ public class LottoTicketTest {
 			.mapToObj(LottoNumber::of)
 			.collect(Collectors.toSet());
 		LottoTicket lottoTicket = new LottoTicket(inputNumbers);
-		Set<LottoNumber> numbers = lottoTicket.getNumbers();
-		Set <Integer> setNumbers = numbers.stream().map(LottoNumber::getValue).collect(Collectors.toSet());
-		Assertions.assertThat(setNumbers.size()).isEqualTo(6);
+
+		Assertions.assertThat(lottoTicket.sortedNumbers())
+			.hasSize(6)
+			.containsExactly(1, 2, 3, 4, 5, 6);
 	}
 
 	@Test

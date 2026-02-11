@@ -15,11 +15,9 @@ public class LottoStatistics {
 	}
 
 	public long totalPrizeMoney() {
-		long totalPrizeMoneyAmount = 0;
-		for (Map.Entry<Rank, Integer> rankEntry : countByRank.entrySet()) {
-			totalPrizeMoneyAmount += rankEntry.getKey().prizeMoney() * rankEntry.getValue();
-		}
-		return totalPrizeMoneyAmount;
+		return countByRank.entrySet().stream()
+			.mapToLong(this::calculatePrizePerRank)
+			.sum();
 	}
 
 	public double profitRate() {
@@ -35,5 +33,9 @@ public class LottoStatistics {
 			totalCount += rankEntry.getValue();
 		}
 		return totalCount;
+	}
+
+	private long calculatePrizePerRank(Map.Entry<Rank, Integer> entry) {
+		return entry.getKey().prizeMoney() * entry.getValue();
 	}
 }

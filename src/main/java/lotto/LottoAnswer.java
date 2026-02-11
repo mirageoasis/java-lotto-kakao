@@ -22,7 +22,7 @@ public class LottoAnswer {
 	}
 
 	private boolean containsBonus(LottoTicket lottoTicket) {
-		return lottoTicket.getNumbers().contains(bonus);
+		return lottoTicket.contains(bonus);
 	}
 
 	private void validateBonusNumber(WinningNumbers winningNumbers, LottoNumber bonus) {

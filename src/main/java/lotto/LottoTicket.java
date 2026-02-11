@@ -16,6 +16,10 @@ public class LottoTicket {
 		return Collections.unmodifiableSet(numbers);
 	}
 
+	public boolean contains(LottoNumber number){
+		return numbers.contains(number);
+	}
+
 	private void validateNumbers(Set<LottoNumber> numbers) {
 		if (numbers.size() != Const.LOTTO_NUMBER_COUNT)
 			throw new IllegalArgumentException("로또 번호는 " + Const.LOTTO_NUMBER_COUNT + "개여야 합니다.");

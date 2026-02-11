@@ -14,7 +14,7 @@ public enum Rank {
 		this.prizeMoney = prizeMoney;
 	}
 
-	public long prizeMoney(){
-			return prizeMoney;
-		}
+	public long prizeMoney() {
+		return prizeMoney;
+	}
 }

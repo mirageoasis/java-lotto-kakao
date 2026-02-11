@@ -17,4 +17,13 @@ public enum Rank {
 	public long prizeMoney() {
 		return prizeMoney;
 	}
+
+	public static Rank fromMatchResult(int matchCount, boolean bonusMatch) {
+		if (matchCount == 6) return FIRST;
+		if (matchCount == 5 && bonusMatch) return SECOND;
+		if (matchCount == 5) return THIRD;
+		if (matchCount == 4) return FOURTH;
+		if (matchCount == 3) return FIFTH;
+		return OTHER;
+	}
 }

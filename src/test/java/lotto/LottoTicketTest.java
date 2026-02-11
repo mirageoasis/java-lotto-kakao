@@ -1,5 +1,6 @@
 package lotto;
 
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -45,6 +46,23 @@ public class LottoTicketTest {
 		LottoTicket lottoTicket = new LottoTicket(inputNumbers);
 
 		Assertions.assertThat(lottoTicket.contains(LottoNumber.of(7))).isFalse();
+	}
+
+	@Test
+	@DisplayName("로또 티켓 번호를 오름차순으로 반환한다")
+	void sorted_numbers() {
+		Set<LottoNumber> inputNumbers = Set.of(
+			LottoNumber.of(45),
+			LottoNumber.of(1),
+			LottoNumber.of(23),
+			LottoNumber.of(7),
+			LottoNumber.of(3),
+			LottoNumber.of(14)
+		);
+		LottoTicket lottoTicket = new LottoTicket(inputNumbers);
+
+		Assertions.assertThat(lottoTicket.sortedNumbers())
+			.isEqualTo(List.of(1, 3, 7, 14, 23, 45));
 	}
 
 }

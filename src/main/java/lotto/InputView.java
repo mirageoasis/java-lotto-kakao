@@ -7,7 +7,15 @@ import java.util.Scanner;
 import java.util.Set;
 
 public class InputView {
-	private final Scanner scanner = new Scanner(System.in);
+	private final Scanner scanner;
+
+	public InputView() {
+		this(new Scanner(System.in));
+	}
+
+	public InputView(Scanner scanner) {
+		this.scanner = scanner;
+	}
 
 	public Money readMoney() {
 		System.out.println("구입금액을 입력해 주세요.");

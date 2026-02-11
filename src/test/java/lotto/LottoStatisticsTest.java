@@ -11,7 +11,7 @@ public class LottoStatisticsTest {
 
 	@Test
 	@DisplayName("로또 통계 생성")
-	public void lotto_statistic_add () {
+	public void lotto_statistic_create () {
 		LottoStatistics lottoStatistics = new LottoStatistics();
 
 		List<Rank> ranks = List.of(

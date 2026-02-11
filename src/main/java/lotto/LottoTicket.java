@@ -36,7 +36,7 @@ public class LottoTicket {
 		Collections.shuffle(numbers);
 		Set<LottoNumber> lottoNumbers = new HashSet<>();
 		for (Integer number : numbers.subList(0, 6)) {
-			lottoNumbers.add(new LottoNumber(number));
+			lottoNumbers.add(LottoNumber.of(number));
 		}
 		return lottoNumbers;
 	}

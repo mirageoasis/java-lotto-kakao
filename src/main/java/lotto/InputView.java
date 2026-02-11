@@ -30,7 +30,7 @@ public class InputView {
 
 	public LottoNumber readBonusNumber() {
 		System.out.println("보너스 볼을 입력해 주세요.");
-		return new LottoNumber(parseInteger(scanner.nextLine()));
+		return LottoNumber.of(parseInteger(scanner.nextLine()));
 	}
 
 	private WinningNumbers parseWinningNumbers(String input) {
@@ -50,7 +50,7 @@ public class InputView {
 	private Set<LottoNumber> toLottoNumbers(List<String> splitNumbers) {
 		Set<LottoNumber> numbers = new HashSet<>();
 		for (String splitNumber : splitNumbers) {
-			numbers.add(new LottoNumber(parseInteger(splitNumber)));
+			numbers.add(LottoNumber.of(parseInteger(splitNumber)));
 		}
 		validateUniqueNumbers(numbers);
 		return numbers;

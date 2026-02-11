@@ -14,14 +14,7 @@ public class LottoAnswer {
 	public Rank judge(LottoTicket lottoTicket) {
 		int matchCount = countMatch(lottoTicket);
 		boolean bonusMatch = containsBonus(lottoTicket);
-
-		if (matchCount == 6) return Rank.FIRST;
-		if (matchCount == 5 && bonusMatch) return Rank.SECOND;
-		if (matchCount == 5) return Rank.THIRD;
-		if (matchCount == 4) return Rank.FOURTH;
-		if (matchCount == 3) return Rank.FIFTH;
-
-		return Rank.OTHER;
+		return Rank.fromMatchResult(matchCount, bonusMatch);
 	}
 
 	private int countMatch(LottoTicket lottoTicket) {

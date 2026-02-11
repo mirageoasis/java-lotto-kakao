@@ -21,7 +21,7 @@ public class LottoStatisticsTest {
 			Rank.FIFTH
 		);
 		final long totalPrizeMoney = ranks.stream().mapToLong(Rank::prizeMoney).sum();
-		final int totalMoneySpent = ranks.size() * 1000;
+		final int totalMoneySpent = ranks.size() * Const.TICKET_PRICE;
 		final double profitRate = (double) totalPrizeMoney / totalMoneySpent;
 
 		// 통계생성

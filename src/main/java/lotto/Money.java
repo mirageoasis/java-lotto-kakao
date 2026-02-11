@@ -9,11 +9,11 @@ public class Money {
 	}
 
 	public int toPurchaseCount(){
-		return value / 1000;
+		return value / Const.TICKET_PRICE;
 	}
 
 	private void validateAmount(int value){
-		if (value < 0)
-			throw new IllegalArgumentException();
+		if (value < Const.TICKET_PRICE)
+			throw new IllegalArgumentException("구매 금액이 " + Const.TICKET_PRICE + "원 이상이어야 합니다.");
 	}
 }

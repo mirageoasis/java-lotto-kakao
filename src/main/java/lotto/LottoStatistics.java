@@ -24,7 +24,7 @@ public class LottoStatistics {
 		final int totalTicketCount = totalTicketCount();
 		if (totalTicketCount == 0)
 			return 0.0;
-		return (double) totalPrizeMoney() / (totalTicketCount * Const.TICKET_PRICE);
+		return (double)totalPrizeMoney() / (totalTicketCount * Const.TICKET_PRICE);
 	}
 
 	private int totalTicketCount() {

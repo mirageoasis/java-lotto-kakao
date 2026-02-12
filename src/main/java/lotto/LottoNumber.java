@@ -28,12 +28,12 @@ public class LottoNumber {
 		return List.copyOf(cache);
 	}
 
-	private static void validateNumber(int value){
+	private static void validateNumber(int value) {
 		if (!(MIN_NUMBER <= value && value <= MAX_NUMBER))
 			throw new IllegalArgumentException();
 	}
 
-	public int getValue(){
+	public int getValue() {
 		return this.value;
 	}
 

@@ -16,7 +16,7 @@ public class LottoTicketTest {
 
 	@Test
 	@DisplayName("로또 티켓 생성 확인")
-	public void init_lotto_ticket(){
+	public void init_lotto_ticket() {
 		Set<LottoNumber> inputNumbers = IntStream.rangeClosed(1, 6)
 			.mapToObj(LottoNumber::of)
 			.collect(Collectors.toSet());

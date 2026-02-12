@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 public class MoneyTest {
 	@Test
 	@DisplayName("구매 가능한 티켓 수량을 반환한다 (1,000의 배수)")
-	public void getTicketCount_when_amount_is_multiple_of_1000(){
+	public void getTicketCount_when_amount_is_multiple_of_1000() {
 		int amount = 22000;
 		int answerCnt = amount / Const.TICKET_PRICE;
 
@@ -21,7 +21,7 @@ public class MoneyTest {
 
 	@Test
 	@DisplayName("구매 가능한 티켓 수량을 반환한다 (1,000의 배수가 아닌 금액)")
-	public void getTicketCount_when_amount_has_remainder(){
+	public void getTicketCount_when_amount_has_remainder() {
 		int amount = 22500;
 		int answerCnt = amount / Const.TICKET_PRICE;
 
@@ -33,7 +33,7 @@ public class MoneyTest {
 
 	@Test
 	@DisplayName("지불할 금액이 TICKET_PRICE원 미만인 경우")
-	public void error_ticket_price(){
+	public void error_ticket_price() {
 		int amount = Const.TICKET_PRICE - 1;
 
 		assertThatThrownBy(() -> new Money(amount))

@@ -11,7 +11,7 @@ public class LottoTicketGenerator {
 			throw new IllegalArgumentException("티켓의 개수는 1이상이어야 합니다");
 
 		List<LottoTicket> lottoTicketList = new ArrayList<>();
-		for(int i = 0; i < ticketNumber; i++){
+		for (int i = 0; i < ticketNumber; i++) {
 			lottoTicketList.add(new LottoTicket(lottoNumberPicker.pick()));
 		}
 		return new LottoTickets(lottoTicketList);

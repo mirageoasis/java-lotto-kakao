@@ -1,6 +1,5 @@
 package lotto;
 
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
@@ -15,7 +14,7 @@ public class LottoTicket {
 		this.numbers = new HashSet<>(numbers);
 	}
 
-	public boolean contains(LottoNumber number){
+	public boolean contains(LottoNumber number) {
 		return numbers.contains(number);
 	}
 

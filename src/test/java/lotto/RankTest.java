@@ -20,8 +20,8 @@ class RankTest {
 
 	@Test
 	@DisplayName("ENUM 필드와 값이 일치하는지 확인")
-	public void test_enum(){
-		for (Map.Entry<String, Long> map: mapper.entrySet()){
+	public void test_enum() {
+		for (Map.Entry<String, Long> map : mapper.entrySet()) {
 			assertThat(Rank.valueOf(map.getKey()).prizeMoney()).isEqualTo(map.getValue());
 		}
 	}

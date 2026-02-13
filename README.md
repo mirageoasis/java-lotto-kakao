@@ -71,18 +71,20 @@ direction LR
 
 class InputView {
   +readMoney() Money
-  +readWinningNumbers() Set~LottoNumber~
+  +readWinningNumbers() WinningNumbers
   +readBonusNumber() LottoNumber
 }
 
-class OuputView {
-  +printTickets(List~LottoTicket~)
+class OutputView {
+  +printPurchaseResult(LottoTickets)
   +printStatistics(LottoStatistics)
+  +printError(String)
 }
 
 class LottoController {
-  -money: Money
-  -tickets: List~LottoTicket~
+  -inputView: InputView
+  -outputView: OutputView
+  +run() void
 }
 
 class Money {
@@ -92,49 +94,99 @@ class Money {
 
 class LottoTicket {
   -numbers: Set~LottoNumber~
+  +contains(LottoNumber) boolean
+  +sortedNumbers() List~Integer~
+}
+
+class LottoTickets {
+  -tickets: List~LottoTicket~
+  +size() int
+  +forEach(Consumer~LottoTicket~) void
 }
 
 class LottoNumber {
   -value: int
+  +of(int) LottoNumber$
+  +getValue() int
+}
+
+class LottoNumberPicker {
+  +pick() Set~LottoNumber~
 }
 
 class LottoTicketGenerator {
-  +generate(int) List~LottoTicket~
+  +generate(int) LottoTickets$
+}
+
+class WinningNumbers {
+  -numbers: Set~LottoNumber~
+  +contains(LottoNumber) boolean
+  +countMatch(LottoTicket) int
 }
 
 class LottoAnswer {
-  -winningNumbers: Set~LottoNumber~
+  -winningNumbers: WinningNumbers
   -bonus: LottoNumber
   +judge(LottoTicket) Rank
 }
 
 class Rank {
   <<enumeration>>
-  +prizeMoney: long
+  +fromMatchResult(int, boolean) Rank$
+  +prizeMoney() long
 }
 
 class LottoStatistics {
-  -cntByRank: Map~Rank,Integer~
-  -totalPrizeMoney() long
-  +add(Rank)
+  -countByRank: Map~Rank,Integer~
+  +add(Rank) void
+  +countOf(Rank) int
+  +totalPrizeMoney() long
   +profitRate() double
 }
 
+class Application {
+  +main(String[]) void$
+}
+
+class Const {
+  <<utility>>
+  +TICKET_PRICE: int$
+  +LOTTO_NUMBER_COUNT: int$
+}
+
+Application --> LottoController
 LottoController --> InputView
-LottoController --> OuputView
+LottoController --> OutputView
 LottoController --> Money
-LottoController --> LottoTicket
 LottoController --> LottoTicketGenerator
+LottoController --> LottoTickets
+LottoController --> WinningNumbers
 LottoController --> LottoAnswer
 LottoController --> LottoStatistics
+InputView --> Money
+InputView --> WinningNumbers
+InputView --> LottoNumber
+OutputView --> LottoTickets
+OutputView --> LottoStatistics
+OutputView --> Rank
 LottoTicket --> LottoNumber
+LottoTickets --> LottoTicket
 LottoTicketGenerator --> LottoTicket
+LottoTicketGenerator --> LottoTickets
+LottoTicketGenerator --> LottoNumberPicker
+LottoNumberPicker --> LottoNumber
+WinningNumbers --> LottoNumber
+WinningNumbers --> LottoTicket
+LottoAnswer --> WinningNumbers
 LottoAnswer --> LottoNumber
 LottoAnswer --> LottoTicket
 LottoAnswer --> Rank
 LottoStatistics --> Rank
-OuputView --> LottoTicket
-OuputView --> LottoStatistics
+Money --> Const
+LottoTicket --> Const
+LottoNumberPicker --> Const
+WinningNumbers --> Const
+LottoStatistics --> Const
 ```
 
 # 로또

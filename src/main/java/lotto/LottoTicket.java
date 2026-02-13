@@ -9,6 +9,10 @@ import java.util.stream.Collectors;
 public class LottoTicket {
 	private final Set<LottoNumber> numbers;
 
+	public LottoTicket(List<LottoNumber> numbers) {
+		this(new HashSet<>(numbers));
+	}
+
 	public LottoTicket(Set<LottoNumber> numbers) {
 		validateNumbers(numbers);
 		this.numbers = new HashSet<>(numbers);

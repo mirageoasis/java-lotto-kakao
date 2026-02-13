@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -30,9 +31,9 @@ public class LottoTicketTest {
 	@Test
 	@DisplayName("로또 티켓에 포함된 번호면 true를 반환한다")
 	void contains_true_when_number_exists() {
-		Set<LottoNumber> inputNumbers = IntStream.rangeClosed(1, 6)
-			.mapToObj(LottoNumber::of)
-			.collect(Collectors.toSet());
+		List<LottoNumber> inputNumbers = Stream.of(1, 2, 3, 4, 7, 31)
+			.map(LottoNumber::of)
+			.collect(Collectors.toList());
 		LottoTicket lottoTicket = new LottoTicket(inputNumbers);
 
 		Assertions.assertThat(lottoTicket.contains(LottoNumber.of(3))).isTrue();
@@ -41,9 +42,9 @@ public class LottoTicketTest {
 	@Test
 	@DisplayName("로또 티켓에 없는 번호면 false를 반환한다")
 	void contains_false_when_number_not_exists() {
-		Set<LottoNumber> inputNumbers = IntStream.rangeClosed(1, 6)
-			.mapToObj(LottoNumber::of)
-			.collect(Collectors.toSet());
+		List<LottoNumber> inputNumbers = Stream.of(1, 2, 43, 4, 8, 31)
+			.map(LottoNumber::of)
+			.collect(Collectors.toList());
 		LottoTicket lottoTicket = new LottoTicket(inputNumbers);
 
 		Assertions.assertThat(lottoTicket.contains(LottoNumber.of(7))).isFalse();

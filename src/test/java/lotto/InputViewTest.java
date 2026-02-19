@@ -77,6 +77,16 @@ class InputViewTest {
 		assertThat(manualCount).isEqualTo(3);
 	}
 
+	@DisplayName("수동 구매 개수에 숫자가 아닌 값이 들어오면 예외가 발생한다.")
+	@Test
+	void readManualCountNotIntegerError() {
+		InputView inputView = inputView("abc");
+
+		assertThatThrownBy(inputView::readManualCount)
+			.isInstanceOf(IllegalArgumentException.class)
+			.hasMessageContaining("숫자만 입력할 수 있습니다.");
+	}
+
 	@DisplayName("수동 번호를 장수만큼 입력받는다.")
 	@Test
 	void readManualTicketsSuccess() {

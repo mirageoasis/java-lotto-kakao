@@ -66,4 +66,37 @@ class InputViewTest {
 			.isInstanceOf(IllegalArgumentException.class)
 			.hasMessageContaining("숫자만 입력할 수 있습니다.");
 	}
+
+	@DisplayName("수동 구매 개수를 정상적으로 입력받는다.")
+	@Test
+	void readManualCountSuccess() {
+		InputView inputView = inputView("3");
+
+		int manualCount = inputView.readManualCount();
+
+		assertThat(manualCount).isEqualTo(3);
+	}
+
+	@DisplayName("수동 번호를 장수만큼 입력받는다.")
+	@Test
+	void readManualTicketsSuccess() {
+		InputView inputView = inputView(
+			"1, 2, 3, 4, 5, 6\n" +
+				"7, 8, 9, 10, 11, 12"
+		);
+
+		LottoTickets manualTickets = inputView.readManualTickets(2);
+
+		assertThat(manualTickets.size()).isEqualTo(2);
+	}
+
+	@DisplayName("수동 번호에 중복이 있으면 예외가 발생한다.")
+	@Test
+	void readManualTicketsDuplicateError() {
+		InputView inputView = inputView("1, 2, 3, 4, 5, 5");
+
+		assertThatThrownBy(() -> inputView.readManualTickets(1))
+			.isInstanceOf(IllegalArgumentException.class)
+			.hasMessageContaining("로또 번호는 중복될 수 없습니다.");
+	}
 }

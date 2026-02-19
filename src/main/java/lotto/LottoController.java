@@ -1,5 +1,7 @@
 package lotto;
 
+import java.util.List;
+
 public class LottoController {
 	private final InputView inputView;
 	private final OutputView outputView;
@@ -11,7 +13,6 @@ public class LottoController {
 
 	public void run() {
 		LottoTickets lottoTickets = readLottoTickets();
-		outputView.printPurchaseResult(lottoTickets);
 
 		WinningNumbers winningNumbers = readWinningNumbers();
 		LottoAnswer lottoAnswer = readLottoAnswer(winningNumbers);
@@ -22,7 +23,20 @@ public class LottoController {
 	private LottoTickets readLottoTickets() {
 		while (true) {
 			try {
-				return LottoTicketGenerator.generate(readMoney().toPurchaseCount());
+				Money money = readMoney();
+				int manualCount = inputView.readManualCount();
+				money.validateManualCount(manualCount);
+
+				LottoTickets manualTickets = inputView.readManualTickets(manualCount);
+				int autoCount = money.toPurchaseCount() - manualCount;
+
+				LottosGenerator generator = new CompositeLottosGenerator(List.of(
+					new ManualLottosGenerator(manualTickets),
+					new AutoLottosGenerator(autoCount)
+				));
+				LottoTickets lottoTickets = generator.generate();
+				outputView.printPurchaseResult(manualCount, autoCount, lottoTickets);
+				return lottoTickets;
 			} catch (IllegalArgumentException exception) {
 				outputView.printError(exception.getMessage());
 			}

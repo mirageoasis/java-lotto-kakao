@@ -4,8 +4,8 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 
 public class OutputView {
-	public void printPurchaseResult(LottoTickets lottoTickets) {
-		System.out.printf("%d개를 구매했습니다.%n", lottoTickets.size());
+	public void printPurchaseResult(int manualCount, int autoCount, LottoTickets lottoTickets) {
+		System.out.printf("수동으로 %d장, 자동으로 %d개를 구매했습니다.%n", manualCount, autoCount);
 		lottoTickets.forEach(lottoTicket -> System.out.println(lottoTicket.sortedNumbers()));
 		System.out.println();
 	}

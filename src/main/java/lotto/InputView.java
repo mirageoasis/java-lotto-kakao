@@ -1,6 +1,7 @@
 package lotto;
 
 import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Scanner;
@@ -24,8 +25,7 @@ public class InputView {
 
 	public WinningNumbers readWinningNumbers() {
 		System.out.println("지난 주 당첨 번호를 입력해 주세요.");
-		String input = scanner.nextLine();
-		return parseWinningNumbers(input);
+		return new WinningNumbers(parseLottoNumbers(scanner.nextLine(), "당첨 번호"));
 	}
 
 	public LottoNumber readBonusNumber() {
@@ -33,32 +33,45 @@ public class InputView {
 		return LottoNumber.of(parseInteger(scanner.nextLine()));
 	}
 
-	private WinningNumbers parseWinningNumbers(String input) {
+	public int readManualCount() {
+		System.out.println("수동으로 구매할 로또 수를 입력해 주세요.");
+		return parseInteger(scanner.nextLine());
+	}
+
+	public LottoTickets readManualTickets(int manualCount) {
+		System.out.println();
+		System.out.println("수동으로 구매할 번호를 입력해 주세요.");
+
+		List<LottoTicket> tickets = new ArrayList<>();
+		for (int i = 0; i < manualCount; i++) {
+			tickets.add(new LottoTicket(parseLottoNumbers(scanner.nextLine(), "로또 번호")));
+		}
+		return new LottoTickets(tickets);
+	}
+
+	private Set<LottoNumber> parseLottoNumbers(String input, String label) {
 		List<String> splitNumbers = Arrays.stream(input.split(","))
 			.map(String::trim)
 			.toList();
-		validateWinningNumbersCount(splitNumbers);
-		return new WinningNumbers(toLottoNumbers(splitNumbers));
-	}
+		validateNumbersCount(splitNumbers, label);
 
-	private void validateWinningNumbersCount(List<String> splitNumbers) {
-		if (splitNumbers.size() != 6) {
-			throw new IllegalArgumentException("당첨 번호는 6개를 입력해야 합니다.");
-		}
-	}
-
-	private Set<LottoNumber> toLottoNumbers(List<String> splitNumbers) {
 		Set<LottoNumber> numbers = new HashSet<>();
 		for (String splitNumber : splitNumbers) {
 			numbers.add(LottoNumber.of(parseInteger(splitNumber)));
 		}
-		validateUniqueNumbers(numbers);
+		validateUniqueNumbers(numbers, label);
 		return numbers;
 	}
 
-	private void validateUniqueNumbers(Set<LottoNumber> numbers) {
-		if (numbers.size() != 6) {
-			throw new IllegalArgumentException("당첨 번호는 중복될 수 없습니다.");
+	private void validateNumbersCount(List<String> splitNumbers, String label) {
+		if (splitNumbers.size() != Const.LOTTO_NUMBER_COUNT) {
+			throw new IllegalArgumentException(label + "는 6개를 입력해야 합니다.");
+		}
+	}
+
+	private void validateUniqueNumbers(Set<LottoNumber> numbers, String label) {
+		if (numbers.size() != Const.LOTTO_NUMBER_COUNT) {
+			throw new IllegalArgumentException(label + "는 중복될 수 없습니다.");
 		}
 	}
 

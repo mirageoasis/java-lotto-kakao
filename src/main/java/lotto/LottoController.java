@@ -21,22 +21,36 @@ public class LottoController {
 	}
 
 	private LottoTickets readLottoTickets() {
+		Money money = readMoney();
+		int manualCount = readManualCount(money);
+		LottoTickets manualTickets = readManualTickets(manualCount);
+		int autoCount = money.toPurchaseCount() - manualCount;
+
+		LottosGenerator generator = new CompositeLottosGenerator(List.of(
+			new ManualLottosGenerator(manualTickets),
+			new AutoLottosGenerator(autoCount)
+		));
+		LottoTickets lottoTickets = generator.generate();
+		outputView.printPurchaseResult(manualCount, autoCount, lottoTickets);
+		return lottoTickets;
+	}
+
+	private int readManualCount(Money money) {
 		while (true) {
 			try {
-				Money money = readMoney();
 				int manualCount = inputView.readManualCount();
 				money.validateManualCount(manualCount);
+				return manualCount;
+			} catch (IllegalArgumentException exception) {
+				outputView.printError(exception.getMessage());
+			}
+		}
+	}
 
-				LottoTickets manualTickets = inputView.readManualTickets(manualCount);
-				int autoCount = money.toPurchaseCount() - manualCount;
-
-				LottosGenerator generator = new CompositeLottosGenerator(List.of(
-					new ManualLottosGenerator(manualTickets),
-					new AutoLottosGenerator(autoCount)
-				));
-				LottoTickets lottoTickets = generator.generate();
-				outputView.printPurchaseResult(manualCount, autoCount, lottoTickets);
-				return lottoTickets;
+	private LottoTickets readManualTickets(int manualCount) {
+		while (true) {
+			try {
+				return inputView.readManualTickets(manualCount);
 			} catch (IllegalArgumentException exception) {
 				outputView.printError(exception.getMessage());
 			}
